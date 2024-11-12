@@ -13,6 +13,12 @@ app.get("/employees", (req, res) => {
   res.json(employees);
 });
 
+app.get("/employees/random", (req, res) => {
+  const randomIndex = Math.floor(Math.random() * employees.length);
+  const randomEmployee = employees.at(randomIndex);
+  res.json(randomEmployee);
+});
+
 app.get("/employees/:id", (req, res) => {
   const { id } = req.params;  
   const employee = employees.find(emp => emp.id === +id);
@@ -22,12 +28,6 @@ app.get("/employees/:id", (req, res) => {
   } else {
     res.status(404).send("employee not found");
   }
-});
-
-app.get("/employees/random", (req, res) => {
-  const randomIndex = Math.floor(Math.random() * employees.length);
-  const randomEmployee = employees.find(randomIndex);
-  res.json(randomEmployee);
 });
 
 app.listen(PORT, () => {
